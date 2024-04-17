@@ -13,7 +13,11 @@ const BALL_ELAST = .5;
 // INPUT: min(Minumum random number), max(Maximum random number)
 // OUTPUT: Number between min and max (inclusive)
 function random(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
+    var pos_neg = 1;
+    if (min < 0){
+        pos_neg = Math.random() < 0.5 ? -1 : 1;
+    }
+    return Math.floor((Math.random() * (max - min + 1)) + min) * pos_neg;
 }
 
 // randomRGB() Helper Function
@@ -71,6 +75,7 @@ class Ball {
 // OUTPUT: N/A
 // Description: loop is used to create the canvas background and to recursively request animation frames. This animates the canvas.
 function loop() {
+
     ctx.fillStyle = "black";
     ctx.fillRect(0, 0, width, height);
 
@@ -85,7 +90,7 @@ function loop() {
 // MAIN FUNCTION
 const balls = [];
 while (balls.length < 100){
-    const ball = new Ball(random(0, width), random(0, height), random(0, 50), random(0, 50), randomRGB(), random(1, 50));
+    const ball = new Ball(random(0, width), random(0, height), random(-50, 50), random(-50, 50), randomRGB(), random(1, 50));
     balls.push(ball);
 }
 
